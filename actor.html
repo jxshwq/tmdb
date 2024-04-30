@@ -54,9 +54,6 @@
                         Death date:
                     </span>
                 </p>
-                <a type="button" class="btn btn-primary fs-5" href="#" id="homepage">
-                    see more
-                </a>
             </div>
         </div>
         <div>
@@ -74,7 +71,7 @@
                             <p class="card-text"></p>
                         </div>
                         <div class="card-footer">
-                            <a href="#" onclick="setActorId(event)" class="btn btn-primary">Details</a>
+                            <a href="#" onclick="setSelectedMovieId(event)" class="btn btn-primary">Details</a>
                         </div>
                     </div>
                 </div>
@@ -153,10 +150,7 @@
                 .catch(err => console.error(err));
         }
 
-        function setActorId(event) {
-            var selectedActorId = event.currentTarget.dataset.id;
-            window.location.href = "actor.html?actorId=" + encodeURIComponent(selectedActorId);
-        }
+
 
 
 
@@ -176,7 +170,7 @@
 
                     const card = document.getElementById("card")
 
-                    for (const actor of response.cast) {
+                    for (const movie of response.cast) {
 
 
                         var cardClone = card.cloneNode(true)
@@ -185,21 +179,21 @@
 
                         
                         var detailsButton = cardClone.getElementsByClassName("btn")[0];
-                        detailsButton.dataset.id = actor.id;
+                        detailsButton.dataset.id = movie.id;
                         
-                        var actorCharacterName = cardClone.getElementsByClassName("card-title")[0]
-                        actorCharacterName.innerHTML = actor.character
+                        var movieCharacterName = cardClone.getElementsByClassName("card-title")[0]
+                        movieCharacterName.innerHTML = movie.character
                         
                         var yearOfRelease = cardClone.getElementsByClassName("card-text")[0]
-                        yearOfRelease.innerHTML = new Date(actor.release_date).getFullYear()
+                        yearOfRelease.innerHTML = new Date(movie.release_date).getFullYear()
                         
                         cardClone.classList.remove('d-none')
                         
-                        if (actor.poster_path == null) {
+                        if (movie.poster_path == null) {
                             immagine.src = "https://static-00.iconduck.com/assets.00/avatar-default-symbolic-icon-479x512-n8sg74wg.png"
                             card.after(cardClone)
                         } else {
-                            immagine.src = IMAGE_BASE + actor.poster_path
+                            immagine.src = IMAGE_BASE + movie.poster_path
                             card.before(cardClone)
                         }
 

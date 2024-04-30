@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="cardsHover.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
 </head>
 
 <body>
@@ -51,13 +50,25 @@
                 </ul>
                 <span>
                 </span>
-                <form class="d-flex" onsubmit="event.preventDefault(); searchFilm();">
+
+
+                <form class="searchbar" onsubmit="event.preventDefault(); searchFilm()">
+                    <input class="search_input" type="text" id="searchInput" placeholder="Search...">
+                    <a href="#" class="search_icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                          </svg>
+                    </a>
+                </form>
+                
+
+                <!-- <form class="d-flex" onsubmit="event.preventDefault(); searchFilm();">
                     <input class="form-control me-2" type="search" placeholder="Search (Ctrl+K)" id="searchInput"
                         aria-label="Search">
                     <button class="btn btn-outline-success mr-3" type="submit" id="searchButton"
                         onclick="searchFilm()">Search</button>
                         
-                </form>
+                </form> -->
 
                 <button class="btn btn-link nav-link py-2 px-0 px-lg-2 d-flex align-items-center" onclick="changeMode()">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-stars" viewBox="0 0 16 16">
@@ -134,10 +145,6 @@
             loadPage(1)
         }
 
-        function setSelectedMovieId(event) {
-            var selectedMovieId = event.currentTarget.dataset.id;
-            window.location.href = "film.html?movieId=" + encodeURIComponent(selectedMovieId);
-        }
 
         function loadPage(pageNumber) {
             displayFilmList(sessionStorage.getItem("movieListName"))
@@ -151,47 +158,9 @@
             movieListType.innerHTML = listType + " movies"
         }
 
-        function deleteCards() {
-            var card = document.getElementById("card")
-            while (card.nextSibling != null) {
-                card.nextSibling.remove()
-            }
-        }
 
-        function selectActivePage() {
-            var page1 = document.getElementById("page1")
-            var page2 = document.getElementById("page2")
-            var page3 = document.getElementById("page3")
-            var previous = document.getElementById("previous")
-            var next = document.getElementById("next")
-            if (pagePreset != 1) {
-                previous.classList.remove("disabled")
-                page1.innerHTML = pagePreset - 1
-                page1.classList.remove("active")
-                page2.innerHTML = pagePreset
-                page2.classList.add("active")
-                page3.innerHTML = pagePreset + 1
-                page3.classList.remove("active")
-                page3.classList.remove("disabled")
 
-            } else if (pagePreset == totalPages) {
-                page1.innerHTML = pagePreset - 2
-                page1.classList.remove("active")
-                page2.innerHTML = pagePreset - 1
-                page2.classList.remove("active")
-                page3.innerHTML = pagePreset
-                page3.classList.add("active")
-            } else {
-                previous.classList.add("disabled")
-                page1.innerHTML = pagePreset
-                page1.classList.add("active")
-                page2.innerHTML = pagePreset + 1
-                page2.classList.remove("active")
-                page3.innerHTML = pagePreset + 2
-                page3.classList.remove("active")
-                page3.classList.remove("disabled")
-            }
-        }
+
 
 
 

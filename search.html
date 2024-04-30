@@ -84,54 +84,10 @@
         setMode()
 
         function loadPage(pageNumber) {
-            displayFilmList()
             getFilms(pageNumber)
             selectActivePage()
+            $('html, body').animate({ scrollTop: 0 }, 'fast');
         }
-
-        function deleteCards() {
-            var card = document.getElementById("card")
-            while (card.nextSibling != null) {
-                card.nextSibling.remove()
-            }
-        }
-
-        function selectActivePage() {
-            var page1 = document.getElementById("page1")
-            var page2 = document.getElementById("page2")
-            var page3 = document.getElementById("page3")
-            var previous = document.getElementById("previous")
-            var next = document.getElementById("next")
-            if (pagePreset != 1) {
-                previous.classList.remove("disabled")
-                page1.innerHTML = pagePreset - 1
-                page1.classList.remove("active")
-                page2.innerHTML = pagePreset
-                page2.classList.add("active")
-                page3.innerHTML = pagePreset + 1
-                page3.classList.remove("active")
-                page3.classList.remove("disabled")
-
-            } else if (pagePreset == totalPages) {
-                page1.innerHTML = pagePreset - 2
-                page1.classList.remove("active")
-                page2.innerHTML = pagePreset - 1
-                page2.classList.remove("active")
-                page3.innerHTML = pagePreset
-                page3.classList.add("active")
-            } else {
-                previous.classList.add("disabled")
-                page1.innerHTML = pagePreset
-                page1.classList.add("active")
-                page2.innerHTML = pagePreset + 1
-                page2.classList.remove("active")
-                page3.innerHTML = pagePreset + 2
-                page3.classList.remove("active")
-                page3.classList.remove("disabled")
-            }
-
-        }
-
 
 
         let pagePreset = 1;
@@ -152,7 +108,12 @@
             
         }
 
+
+
+
         function getFilms(pageNumber) {
+            
+            console.log(pageNumber)
 
 
             deleteCards()
@@ -160,6 +121,8 @@
             if (pageNumber != null && pageNumber > 0) {
                 pagePreset = pageNumber
             }
+
+
 
 
 
@@ -171,11 +134,10 @@
                 }
             };
 
-            fetch('https://api.themoviedb.org/3/search/movie?query=' + (searchId) + '&include_adult=false&language=en-US&page=1', options)
+            fetch('https://api.themoviedb.org/3/search/movie?query=' + (searchId) + '&include_adult=false&language=en-US&page=' + pageNumber, options)
                 .then(response => response.json())
                 .then(response => {
 
-                    console.log(response)
                     var card = document.getElementById("card")
 
 
