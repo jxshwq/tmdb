@@ -1,12 +1,17 @@
 
 function changeMode() {
     var htmlElement = document.getElementById('html');
+    var logo = document.getElementById("logo")
     if (htmlElement.getAttribute('data-bs-theme') == "" || htmlElement.getAttribute('data-bs-theme') == "white") {
         htmlElement.setAttribute('data-bs-theme', 'dark');
+        logo.setAttribute("title", "contrast")
+        logo.setAttribute("class", "contrast")
         sessionStorage.setItem("mode", "dark")
     } else {
         htmlElement.setAttribute('data-bs-theme', 'white')
         sessionStorage.setItem("mode", "white")
+        logo.setAttribute("title", "brightness")
+        logo.setAttribute("class", "brightness")
     }
 }
 
@@ -62,26 +67,29 @@ function selectActivePage() {
     }
 }
 
+
 function deleteCards() {
-
-    // var card = document.getElementById("card")
-    // while (card.nextSibling != null) {
-    //         console.log(card.nextSibling)
-    //         card = card.nextSibling
-    //         card.previousSibling.remove()
-    // }
-
-    while (card.nextSibling != null) {
-        card.nextSibling.remove()
+    var card = document.getElementById("card");
+    var parent = card.parentNode;
+    var lastChild = parent.lastChild;
+    while (card.nextSibling != lastChild) {
+        card.remove()
+        card = document.getElementById("card");
     }
 }
 
+function getNumberOfResults() {
+    
+}
 
-// function deleteCards() {
 
-//     var card = document.getElementById("card")
-//     while (card.nextSibling.nex
-//          != null) {
-//         card.nextSibling.remove()
-//     }
-// }
+var searchBar = document.querySelector('.searchbar');
+var searchInput = document.querySelector('.search_input');
+
+searchInput.addEventListener('focus', function() {
+    searchBar.classList.add('focused');
+});
+
+searchInput.addEventListener('blur', function() {
+    searchBar.classList.remove('focused');
+});
